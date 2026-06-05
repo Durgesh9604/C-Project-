@@ -1,0 +1,157 @@
+#include<stdio.h>
+
+int main()
+{
+    char name[50];
+    int choice;
+    int score = 0;
+
+    // Take candidate name
+    printf("Enter the Candidate name: ");
+    scanf(" %[^\n]", name);
+
+    printf("%s, ready to play the quiz!\n\n", name);
+
+    do
+    {
+        printf("*************** Type Of Quiz *************\n");
+        printf("1. Mathematics\n");
+        printf("2. Science\n");
+        printf("3. General Knowledge\n");
+        printf("4. Exit\n");
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+
+        switch(choice)
+        {
+            case 1:
+            printf("\n*********************************************************************************\n");
+            {
+                printf("\nWelcome to the Mathematics Quiz!\n");
+
+                char mathsQuestions[5][100] = {
+                    "1. What is 12 * 8?",
+                    "2. The square root of 144 is?",
+                    "3. Solve: 25 + 36 - 12 = ?",
+                    "4. What is 7^2?",
+                    "5. If x = 5, calculate 2x + 10 = ?"
+                };
+
+                int mathsAnswers[5] = {96, 12, 49, 49, 20}; // correct answers
+                int userAns;
+                for(int i = 0; i < 5; i++)
+                {
+                    printf("\n%s\n", mathsQuestions[i]);
+                    printf("Enter your answer: ");
+                    scanf("%d", &userAns);
+
+                    if(userAns == mathsAnswers[i])
+                    {
+                        printf("Correct!\n");
+                        score++;
+                    }
+                    else
+                    {
+                        printf("Wrong! The correct answer is %d\n", mathsAnswers[i]);
+                    }
+                }
+                printf("\n------------------------(RESULT)--------------------------------\n");
+                printf("\nYou scored %d out of 5 in Mathematics!\n\n", score);
+                
+                if(score >= 3)
+                printf("Congratulations! You passed this quiz.\n");
+                else
+                printf("Better luck next time!\n");
+                printf("\n______________________________________________________________________\n");
+                break;
+            }
+
+            case 2:
+            printf("\n*********************************************************************************\n");
+            printf("\nWelcome to the Science Quiz!\n\n");
+            char ScienceQuestions[5][200] =
+    {
+        "1. What is the chemical symbol for water?\n   1. H2O  2. CO2  3. O2  4. NaCl",
+        "2. The planet known as the Red Planet is?\n   1. Venus  2. Mars  3. Jupiter  4. Saturn",
+        "3. Which gas do humans breathe in to survive?\n   1. Carbon dioxide  2. Nitrogen  3. Oxygen  4. Hydrogen",
+        "4. What is the center of an atom called?\n   1. Electron  2. Proton  3. Neutron  4. Nucleus",
+        "5. Light travels fastest in which medium?\n   1. Vacuum  2. Air  3. Water  4. Glass"
+    };
+    int scienceAnswers[5] = {1, 2, 3, 4, 1};
+    int userAns;
+
+    for(int i = 0; i < 5; i++)
+    {
+        printf("\n%s\n", ScienceQuestions[i]);   
+        printf("Enter your answer: ");
+        scanf("%d", &userAns);
+
+        if(userAns == scienceAnswers[i])
+        {
+            printf("Correct!\n");
+            score++;
+        }
+        else
+        {
+            printf("Wrong! The correct answer is %d\n", scienceAnswers[i]);
+        }
+    }
+    
+    printf("\n------------------------(RESULT)--------------------------------\n");
+    printf("\nYou scored %d out of 5 in Science!\n\n", score); 
+    if(score >= 3)
+    printf("Congratulations! You passed this quiz.\n");
+    else
+    printf("Better luck next time!\n");
+    printf("\n______________________________________________________________________\n");
+    break;
+
+            case 3:
+            printf("\n*********************************************************************************\n");
+                printf("\nWelcome To The General Knowledge Quiz!\n\n");
+                char GkQuestion[5][500] = 
+                {
+                    "1. Who is known as the Father of the Nation in India?\n   1. Jawaharlal Nehru  2. Mahatma Gandhi  3. Subhas Chandra Bose  4. Bhagat Singh",
+                    "2. What is the largest continent in the world?\n   1. Africa  2. Europe  3. Asia  4. Antarctica",
+                    "3. Which is the longest river in the world?\n   1. Nile  2. Amazon  3. Ganga  4. Yangtze",
+                    "4. How many planets are there in the Solar System?\n   1. 7  2. 8  3. 9  4. 10",
+                    "5. Who wrote the play 'Romeo and Juliet'?\n   1. Charles Dickens  2. William Shakespeare  3. J.K. Rowling  4. Mark Twain"
+                };
+                int gkAnswers[5] = {2, 3, 1, 2, 2};
+                int UserAns;
+                for(int i = 0;i<5;i++)
+                {
+                    printf("\n%s\n",GkQuestion[i]);
+                    printf("Enter Your Answer: ");
+                    scanf("%d",&UserAns);
+                    if(UserAns == gkAnswers[i])
+                    {
+                        printf("Correct!\n");
+                        score++;
+                    }
+                    else
+                    {
+                        printf("Wrong! The correct answer is %d\n", gkAnswers[i]);
+                    }
+                }
+                printf("\n------------------------(RESULT)--------------------------------\n");
+                printf("\nYou scored %d out of 5 in General Knowledge!\n\n", score); 
+                if(score >= 3)
+                printf("Congratulations! You passed this quiz.\n");
+                else
+                printf("Better luck next time!\n");
+                printf("\n______________________________________________________________________\n");
+                break;
+
+            case 4:
+                printf("Exiting the Quiz. Thank you for playing, %s!\n", name);
+                break;
+
+            default:
+                printf("Invalid choice! Try again.\n\n");
+        }
+
+    } while(choice != 4);
+
+    return 0;
+}
