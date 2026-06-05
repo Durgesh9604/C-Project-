@@ -1,0 +1,122 @@
+#include<stdio.h>
+#include<stdlib.h>
+struct bank
+{
+    int A_no;
+    char name[100];
+    float balance;
+};
+
+int main()
+{
+    struct bank B;
+
+    printf("Please Enter The Account Number = ");
+    scanf("%d",&B.A_no);
+
+    printf("Please Enter Your Name = ");
+    scanf(" %[^\n]", B.name);
+
+    printf("Enter the Balance Amount = ");
+    scanf("%f",&B.balance);
+
+    printf("\nTHE DETAILS ENTERED loading........\n");
+
+    printf("Account Number entered = %d\n",B.A_no);
+    printf("Name of Account Holder entered = %s\n",B.name);
+    printf("Account Balance entered = %.2f\n\n",B.balance);
+
+    FILE *fp = fopen("accounts.txt", "r"); 
+    if(fp == NULL)
+    {
+        printf("Error opening file!\n");
+        exit(1);
+    }
+    fprintf(fp, "%d %s %.2f\n", B.A_no, B.name, B.balance);
+    fclose(fp);
+
+    int choice;
+    float D_M;
+    float W_M;
+
+    do
+    {
+        printf("\nWhich Process you want To Perform:\n");
+        printf("1.Create Account\n");
+        printf("2.Deposit Money\n");
+        printf("3.Withdraw Money\n");
+        printf("4.Check Balance\n");
+        printf("5.Exit\n");
+
+        printf("What You Want to perform? ");
+        scanf("%d",&choice);
+
+        switch(choice)
+        {
+            case 1 :
+                printf("ACCOUNT IS ALREADY CREATED\n");
+                break;
+
+            case 2 :
+                printf("*******Depositing Money********\n");
+                printf("HOW MUCH YOU WANT TO ADD: ");
+                scanf("%f",&D_M);
+
+                if(D_M <= 0) { printf("Invalid amount!\n"); break; }
+
+                printf("The Amount You want to deposit : %.2f\n",D_M);
+                printf("SUCCESSFULLY MONEY IS DEPOSITED\n");
+
+                B.balance = B.balance + D_M;
+
+                printf("Your Updated Balance : %.2f\n",B.balance);
+
+                //updating file 
+                fp = fopen("accounts.txt", "a");
+                fprintf(fp, "%d %s %.2f\n", B.A_no, B.name, B.balance);
+                fclose(fp);
+
+                break;
+
+            case 3 :
+                printf("*******Withdrawing Money*******\n");
+                printf("How Much Money You Want To Withdraw : ");
+                scanf("%f",&W_M);
+
+                if(W_M <= 0) { printf("Invalid amount!\n"); break; }
+
+                if(W_M<=B.balance)
+                {
+                    printf("The Amount You want to Withdraw : %.2f\n",W_M);
+                    B.balance = B.balance - W_M;
+                    printf("SUCCESSFULLY MONEY IS Withdrawn\n");
+                    printf("The Updated Balance : %.2f\n",B.balance);
+
+                    // Updating  file again 
+                    fp = fopen("accounts.txt", "a");
+                    fprintf(fp, "%d %s %.2f\n", B.A_no, B.name, B.balance);
+                    fclose(fp);
+                }
+                else{
+                    printf("Insufficient Balance\n");
+                }
+
+                break;
+
+            case 4 :
+                printf("Checking Balance\n");
+                printf("The Current balance : %.2f\n",B.balance);
+                break;
+
+            case 5 :
+                printf("Exiting......(THANK YOU)\n");
+                break;
+
+            default :
+                printf("Invalid Choice\n");
+        }
+
+    }while(choice != 5);
+
+    return 0;
+}
